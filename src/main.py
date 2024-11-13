@@ -36,5 +36,12 @@ while True:
     user_input = input("You: ")
     if "exit" in user_input:
         break
-    response = chat_session.send_message(user_input)
-    print("Skye:", response.text)
+    try:
+        response = chat_session.send_message(user_input)
+    except Exception as e:
+        print("Excuse me? I won't say that :p\n")
+        response = None
+    if response:
+        print("Skye:", response.text)
+    else:
+        continue
