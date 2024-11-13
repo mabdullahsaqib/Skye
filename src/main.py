@@ -1,7 +1,7 @@
 import os
-import speech_recognition as sr
-import pyttsx3
 import google.generativeai as genai
+import pyttsx3
+import speech_recognition as sr
 from dotenv import load_dotenv
 
 # Load the environment variables
@@ -39,12 +39,11 @@ engine.setProperty('voice', voices[1].id)
 engine.setProperty('rate', 250)
 
 
-
-
 def speak(text):
     """Speak out the provided text."""
     engine.say(text)
     engine.runAndWait()
+
 
 def listen():
     """Listen to the user's voice input and return it as text."""
