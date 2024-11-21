@@ -5,13 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc16b96e-bb38-4ae8-b81a-f8120ee4a04e" name="Changes" comment="Added voice recognition and speech">
-      <change afterPath="$PROJECT_DIR$/src/api_requests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/voice_interaction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/configuration.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/configuration.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/trade.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/trade.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/voice_interaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/voice_interaction.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/wallet.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/wallet.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -139,7 +136,7 @@
       <workItem from="1731754386487" duration="18000" />
       <workItem from="1732067753532" duration="2034000" />
       <workItem from="1732190855868" duration="71000" />
-      <workItem from="1732193129180" duration="2973000" />
+      <workItem from="1732193129180" duration="3646000" />
     </task>
     <task id="LOCAL-00001" summary="Added voice recognition and speech">
       <option name="closed" value="true" />
