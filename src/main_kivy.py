@@ -1,13 +1,13 @@
 import os
-from kivy.app import App
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.label import Label
-from kivy.uix.button import Button
-from kivy.clock import Clock
+import google.generativeai as genai
 import pyttsx3
 import speech_recognition as sr
-import google.generativeai as genai
 from dotenv import load_dotenv
+from kivy.app import App
+from kivy.clock import Clock
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
+from kivy.uix.label import Label
 
 # Load environment variables
 load_dotenv()
@@ -38,10 +38,12 @@ voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[1].id)
 engine.setProperty('rate', 250)
 
+
 def speak(text):
     """Speak out the provided text."""
     engine.say(text)
     engine.runAndWait()
+
 
 # Kivy App Layout
 class ChatApp(App):
@@ -90,6 +92,7 @@ class ChatApp(App):
             except Exception:
                 speak("Excuse me? I won't say that.")
                 self.chat_history.text += "\nExcuse me? I won't say that."
+
 
 if __name__ == "__main__":
     ChatApp().run()

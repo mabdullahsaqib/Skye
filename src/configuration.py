@@ -1,6 +1,6 @@
-from api_requests import make_authenticated_request
 import pyttsx3
 import speech_recognition as sr
+from api_requests import make_authenticated_request
 
 # Initialize text-to-speech engine
 engine = pyttsx3.init()
@@ -40,6 +40,7 @@ def listen_to_command():
                 speak_response("Sorry, there was an issue with the service.")
                 return None
 
+
 def update_config(config_data):
     """Update the configuration."""
     response = make_authenticated_request("/config/update", method="POST", data=config_data)
@@ -47,6 +48,7 @@ def update_config(config_data):
         print("Configuration Updated:", response)
         return response
     return None
+
 
 def get_config():
     """Get the current configuration."""
@@ -56,12 +58,13 @@ def get_config():
         return response
     return None
 
+
 def config_voice_interaction(command):
     """Handle the user's command related to configuration."""
-    if 'get' in command:
+    if 'get' in command or 'view' in command:
         response = get_config()
         speak_response(response)
-    elif 'update' in command:
+    elif 'update' in command or 'set' in command:
         speak_response("What configuration data would you like to update?")
         config_data = listen_to_command()
         if config_data:

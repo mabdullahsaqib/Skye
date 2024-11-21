@@ -1,10 +1,10 @@
 import pyttsx3
 import speech_recognition as sr
-from wallet import wallet_voice_interaction
-from trade import trade_voice_interaction
-from configuration import config_voice_interaction
-from user import user_voice_interaction
 from auth import logout
+from configuration import config_voice_interaction
+from trade import trade_voice_interaction
+from user import user_voice_interaction
+from wallet import wallet_voice_interaction
 
 # Initialize text-to-speech engine
 engine = pyttsx3.init()
@@ -15,11 +15,12 @@ engine.setProperty('rate', 150)
 # Initialize recognizer for voice input
 recognizer = sr.Recognizer()
 
-#commands
+# commands
 wallet_commands = ['generate', 'add', 'remove', 'balance', 'default', 'all', 'list']
-trade_commands = ['buy', 'sell', 'order', 'create', 'cancel', 'live', 'past', 'token' , 'tokens']
+trade_commands = ['buy', 'sell', 'order', 'create', 'cancel', 'live', 'past', 'token', 'tokens']
 config_commands = ['set', 'get', 'update']
 user_commands = ['data', 'username', 'change']
+
 
 def speak_response(text):
     """Speak out the provided text."""
@@ -64,7 +65,6 @@ def handle_user_command(command):
         logout()
     else:
         speak_response("Sorry, I didn't understand the command. Can you repeat it?")
-
 
 
 def start():

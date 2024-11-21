@@ -1,6 +1,6 @@
-from api_requests import make_authenticated_request
 import pyttsx3
 import speech_recognition as sr
+from api_requests import make_authenticated_request
 
 # Initialize text-to-speech engine
 engine = pyttsx3.init()
@@ -40,6 +40,7 @@ def listen_to_command():
                 speak_response("Sorry, there was an issue with the service.")
                 return None
 
+
 def buy_token(token_data):
     """Buy a token."""
     response = make_authenticated_request("/trade/buy-token", method="POST", data=token_data)
@@ -47,6 +48,7 @@ def buy_token(token_data):
         print("Token Bought:", response)
         return response
     return None
+
 
 def sell_token(token_data):
     """Sell a token."""
@@ -56,6 +58,7 @@ def sell_token(token_data):
         return response
     return None
 
+
 def create_buy_order(order_data):
     """Create a buy order."""
     response = make_authenticated_request("/trade/create-buy-order", method="POST", data=order_data)
@@ -63,6 +66,7 @@ def create_buy_order(order_data):
         print("Buy Order Created:", response)
         return response
     return None
+
 
 def create_sell_order(order_data):
     """Create a sell order."""
@@ -72,6 +76,7 @@ def create_sell_order(order_data):
         return response
     return None
 
+
 def cancel_order(order_id):
     """Cancel a trade order."""
     response = make_authenticated_request("/trade/cancel-order", method="POST", data={"order_id": order_id})
@@ -79,6 +84,7 @@ def cancel_order(order_id):
         print("Order Canceled:", response)
         return response
     return None
+
 
 def get_live_orders():
     """Get live orders."""
@@ -88,6 +94,7 @@ def get_live_orders():
         return response
     return None
 
+
 def get_past_orders():
     """Get past orders."""
     response = make_authenticated_request("/trade/past-orders", method="GET")
@@ -96,6 +103,7 @@ def get_past_orders():
         return response
     return None
 
+
 def get_tracked_tokens():
     """Get all tracked tokens."""
     response = make_authenticated_request("/trade/get-tracked-tokens", method="POST")
@@ -103,6 +111,7 @@ def get_tracked_tokens():
         print("Tracked Tokens:", response)
         return response
     return None
+
 
 def get_tracked_token(token_id):
     """Get details of a tracked token."""
@@ -115,46 +124,46 @@ def get_tracked_token(token_id):
 
 def trade_voice_interaction(command):
     """Handle trade commands."""
-    if 'buy' in command:
+    if 'buy' in command and 'create' not in command:
         speak_response("What token would you like to buy?")
         token_data = listen_to_command()
         if token_data:
             response = buy_token(token_data)
             speak_response(response)
-    elif 'sell' in command:
+    elif 'sell' in command and 'create' not in command:
         speak_response("What token would you like to sell?")
         token_data = listen_to_command()
         if token_data:
             response = sell_token(token_data)
             speak_response(response)
-    elif 'create buy order' in command:
+    elif 'buy' in command and 'create' in command:
         speak_response("What order would you like to create?")
         order_data = listen_to_command()
         if order_data:
             response = create_buy_order(order_data)
             speak_response(response)
-    elif 'create sell order' in command:
+    elif 'sell' in command and 'create' in command:
         speak_response("What order would you like to create?")
         order_data = listen_to_command()
         if order_data:
             response = create_sell_order(order_data)
             speak_response(response)
-    elif 'cancel order' in command:
+    elif 'cancel' in command:
         speak_response("What is the order ID?")
         order_id = listen_to_command()
         if order_id:
             response = cancel_order(order_id)
             speak_response(response)
-    elif 'live orders' in command:
+    elif 'live' in command:
         response = get_live_orders()
         speak_response(response)
-    elif 'past orders' in command:
+    elif 'past' in command:
         response = get_past_orders()
         speak_response(response)
-    elif 'tracked tokens' in command:
+    elif 'tokens' in command:
         response = get_tracked_tokens()
         speak_response(response)
-    elif 'tracked token' in command:
+    elif 'token' in command:
         speak_response("What is the token ID?")
         token_id = listen_to_command()
         if token_id:

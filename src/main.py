@@ -1,5 +1,5 @@
-from voice_interaction import start
 from auth import login
+from voice_interaction import start
 
 if __name__ == "__main__":
     # Login the user

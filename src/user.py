@@ -1,6 +1,6 @@
-from api_requests import make_authenticated_request
 import pyttsx3
 import speech_recognition as sr
+from api_requests import make_authenticated_request
 
 # Initialize text-to-speech engine
 engine = pyttsx3.init()
@@ -49,6 +49,7 @@ def get_user_data():
         return response
     return None
 
+
 def change_username(new_username):
     """Change the username of the current user."""
     response = make_authenticated_request("/user/change-username", method="POST", data={"new_username": new_username})
@@ -57,9 +58,10 @@ def change_username(new_username):
         return response
     return None
 
+
 def user_voice_interaction(command):
     """Handle the user's command and take appropriate action."""
-    if 'get data' in command:
+    if 'data' in command or 'get' in command:
         response = get_user_data()
         speak_response(response)
     elif 'change username' in command:
@@ -70,4 +72,3 @@ def user_voice_interaction(command):
             speak_response(response)
     else:
         speak_response("I'm not sure how to handle that command.")
-

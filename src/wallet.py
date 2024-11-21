@@ -1,6 +1,6 @@
-from api_requests import make_authenticated_request
 import pyttsx3
 import speech_recognition as sr
+from api_requests import make_authenticated_request
 
 # Initialize text-to-speech engine
 engine = pyttsx3.init()
@@ -49,6 +49,7 @@ def generate_wallet():
         return response
     return None
 
+
 def add_wallet(wallet_data):
     """Add a new wallet."""
     response = make_authenticated_request("/wallet/add", method="POST", data=wallet_data)
@@ -56,6 +57,7 @@ def add_wallet(wallet_data):
         print("Wallet Added:", response)
         return response
     return None
+
 
 def remove_wallet(wallet_id):
     """Remove a wallet."""
@@ -65,6 +67,7 @@ def remove_wallet(wallet_id):
         return response
     return None
 
+
 def get_default_wallet():
     """Get the default wallet."""
     response = make_authenticated_request("/wallet/default", method="GET")
@@ -72,6 +75,7 @@ def get_default_wallet():
         print("Default Wallet:", response)
         return response
     return None
+
 
 def get_all_wallets():
     """Get all wallets."""
@@ -81,6 +85,7 @@ def get_all_wallets():
         return response
     return None
 
+
 def get_wallet_balance(wallet_id):
     """Get the balance of a specific wallet."""
     response = make_authenticated_request(f"/wallet/balance?wallet_id={wallet_id}", method="GET")
@@ -89,9 +94,10 @@ def get_wallet_balance(wallet_id):
         return response
     return None
 
+
 def wallet_voice_interaction(command):
     """Handle voice commands related to wallets."""
-    if 'generate' in command:
+    if 'generate' in command or 'create' in command:
         response = generate_wallet()
         speak_response(response)
     elif 'add' in command:
@@ -100,7 +106,7 @@ def wallet_voice_interaction(command):
         if wallet_data:
             response = add_wallet(wallet_data)
             speak_response(response)
-    elif 'remove' in command:
+    elif 'remove' in command or 'delete' in command:
         speak_response("Which wallet would you like to remove?")
         wallet_id = listen_to_command()
         if wallet_id:
@@ -109,7 +115,7 @@ def wallet_voice_interaction(command):
     elif 'default' in command:
         response = get_default_wallet()
         speak_response(response)
-    elif 'all' in command:
+    elif 'all' in command or 'list' in command:
         response = get_all_wallets()
         speak_response(response)
     elif 'balance' in command:
