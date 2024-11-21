@@ -4,6 +4,7 @@ from wallet import wallet_voice_interaction
 from trade import trade_voice_interaction
 from configuration import config_voice_interaction
 from user import user_voice_interaction
+from auth import logout
 
 # Initialize text-to-speech engine
 engine = pyttsx3.init()
@@ -14,6 +15,11 @@ engine.setProperty('rate', 150)
 # Initialize recognizer for voice input
 recognizer = sr.Recognizer()
 
+#commands
+wallet_commands = ['generate', 'add', 'remove', 'balance', 'default', 'all', 'list']
+trade_commands = ['buy', 'sell', 'order', 'create', 'cancel', 'live', 'past', 'token' , 'tokens']
+config_commands = ['set', 'get', 'update']
+user_commands = ['data', 'username', 'change']
 
 def speak_response(text):
     """Speak out the provided text."""
@@ -46,14 +52,16 @@ def listen_to_command():
 
 def handle_user_command(command):
     """Handle the user's command and take appropriate action."""
-    if 'wallet' in command.lower():
+    if 'wallet' in command.lower() and any(cmd in command.lower() for cmd in wallet_commands):
         wallet_voice_interaction(command)
-    elif 'trade' in command.lower():
+    elif 'trade' in command.lower() and any(cmd in command.lower() for cmd in trade_commands):
         trade_voice_interaction(command)
-    elif 'configuration' in command.lower():
+    elif 'configuration' in command.lower() and any(cmd in command.lower() for cmd in config_commands):
         config_voice_interaction(command)
-    elif 'user' in command.lower():
+    elif 'user' in command.lower() and any(cmd in command.lower() for cmd in user_commands):
         user_voice_interaction(command)
+    elif 'logout' in command.lower() or 'exit' in command.lower():
+        logout()
     else:
         speak_response("Sorry, I didn't understand the command. Can you repeat it?")
 
