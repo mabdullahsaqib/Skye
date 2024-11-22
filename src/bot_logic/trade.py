@@ -81,22 +81,6 @@ def get_spl_token(mint):
     return {"status": "error", "message": "Failed to fetch SPL token details."}
 
 
-def get_reasons_from_input(input_text):
-    """Converts user input into a list of reasons."""
-    reason_map = {
-        "new pool": "new_pool",
-        "high volume": "high_volume",
-        "low cap": "low_cap",
-        "price drop": "price_drop",
-    }
-    input_text = input_text.lower()
-    reasons = [code for reason, code in reason_map.items() if reason in input_text]
-
-    if reasons:
-        return reasons
-    return None
-
-
 def trade_voice_interaction(command, data=None):
     """
     Handle trade-related commands.
@@ -118,8 +102,7 @@ def trade_voice_interaction(command, data=None):
     elif 'past' in command:
         return get_past_orders()
     elif 'tokens' in command:
-        reasons = get_reasons_from_input(data.get("reasons", "")) if data else None
-        return get_tracked_tokens(reasons) if reasons else {"status": "error", "message": "Valid reasons required to fetch tracked tokens."}
+        return get_tracked_tokens(data)
     elif 'token' in command:
         return get_tracked_token(data.get("mint")) if data and "mint" in data else {"status": "error", "message": "Token ID required to fetch tracked token details."}
     else:
