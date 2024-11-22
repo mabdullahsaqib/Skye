@@ -41,12 +41,15 @@ def execute_command():
         return jsonify({"error": "Command is required"}), 400
 
     command = data["command"]
+    additional_data = data.get("data")  # Optional data for specific commands
 
     try:
-        response = handle_user_command(command)
+        response = handle_user_command(command, additional_data)
         return jsonify({"message": "Command executed successfully", "response": response})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
 
 
 @app.route("/logout", methods=["POST"])

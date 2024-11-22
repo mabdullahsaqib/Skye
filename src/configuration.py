@@ -1,54 +1,51 @@
 from api_requests import make_authenticated_request
 
+
 def update_config(config_data: dict) -> dict:
     """
-    Updates the configuration settings.
+    Update the configuration settings.
 
     Args:
         config_data (dict): A dictionary containing configuration fields to update.
-            Example fields include:
-            - amountInSOL: float
-            - autoSniping: bool
-            - burnLP: bool
-            - dexPaid: bool
-            - jitoTip: float
-            - launchTime: int
-            - maxMarketCap: int
-            - minMarketCap: int
-            - renounced: bool
-            - slippage: int
-            - top10HP: int
 
     Returns:
-        dict: Updated configuration details or None if the request fails.
+        dict: The updated configuration details or an error message.
     """
     response = make_authenticated_request("/config/update", method="POST", data=config_data)
     if response:
-        print("Configuration updated successfully:", response.get("data", {}))
-        return response.get("data")
-    else:
-        print("Failed to update configuration.")
-        return None
+        return {"status": "success", "message": "Configuration updated successfully.", "data": response.get("data")}
+    return {"status": "error", "message": "Failed to update configuration."}
 
 
+def get_config() -> dict:
+    """
+    Retrieve the current configuration settings.
 
-def get_config():
-    """Get the current configuration."""
+    Returns:
+        dict: The current configuration settings or an error message.
+    """
     response = make_authenticated_request("/config/get", method="GET")
     if response:
-        print("Configuration:", response)
-        return response
-    return None
+        return {"status": "success", "message": "Configuration retrieved successfully.", "data": response}
+    return {"status": "error", "message": "Failed to retrieve configuration."}
 
 
-def config_voice_interaction(command):
-    """Handle the user's command related to configuration."""
+def config_voice_interaction(command: str, data=None) -> dict:
+    """
+    Handle configuration-related commands.
+
+    Args:
+        command (str): The command string provided by the user.
+        data (dict, optional): Additional data for the command.
+
+    Returns:
+        dict: The result of the command execution.
+    """
     if 'get' in command or 'view' in command:
-        response = get_config()
-        print(response)
+        return get_config()
     elif 'update' in command or 'set' in command:
-        print("What configuration data would you like to update?")
-        config_data = input()
-        if config_data:
-            response = update_config(config_data)
-            print(response)
+        if not data:
+            return {"status": "error", "message": "Configuration data required to update settings."}
+        return update_config(data)
+    else:
+        return {"status": "error", "message": "Unknown configuration command."}

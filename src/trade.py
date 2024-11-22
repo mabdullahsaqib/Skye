@@ -4,63 +4,56 @@ def buy_token(token_data):
     """Buy a token."""
     response = make_authenticated_request("/trade/buy-token", method="POST", data=token_data)
     if response:
-        print("Token Bought:", response)
-        return response
-    return None
+        return {"status": "success", "message": "Token bought successfully.", "data": response}
+    return {"status": "error", "message": "Failed to buy token."}
 
 
 def sell_token(token_data):
     """Sell a token."""
     response = make_authenticated_request("/trade/sell-token", method="POST", data=token_data)
     if response:
-        print("Token Sold:", response)
-        return response
-    return None
+        return {"status": "success", "message": "Token sold successfully.", "data": response}
+    return {"status": "error", "message": "Failed to sell token."}
 
 
 def create_buy_order(order_data):
     """Create a buy order."""
     response = make_authenticated_request("/trade/create-buy-order", method="POST", data=order_data)
     if response:
-        print("Buy Order Created:", response)
-        return response
-    return None
+        return {"status": "success", "message": "Buy order created successfully.", "data": response}
+    return {"status": "error", "message": "Failed to create buy order."}
 
 
 def create_sell_order(order_data):
     """Create a sell order."""
     response = make_authenticated_request("/trade/create-sell-order", method="POST", data=order_data)
     if response:
-        print("Sell Order Created:", response)
-        return response
-    return None
+        return {"status": "success", "message": "Sell order created successfully.", "data": response}
+    return {"status": "error", "message": "Failed to create sell order."}
 
 
 def cancel_order(order_id):
     """Cancel a trade order."""
     response = make_authenticated_request("/trade/cancel-order", method="POST", data={"orderKey": order_id})
     if response:
-        print("Order Canceled:", response)
-        return response
-    return None
+        return {"status": "success", "message": "Order canceled successfully.", "data": response}
+    return {"status": "error", "message": "Failed to cancel order."}
 
 
 def get_live_orders():
     """Get live orders."""
     response = make_authenticated_request("/trade/live-orders", method="GET")
     if response:
-        print("Live Orders:", response)
-        return response
-    return None
+        return {"status": "success", "message": "Live orders retrieved.", "data": response}
+    return {"status": "error", "message": "Failed to fetch live orders."}
 
 
 def get_past_orders():
     """Get past orders."""
     response = make_authenticated_request("/trade/past-orders", method="GET")
     if response:
-        print("Past Orders:", response)
-        return response
-    return None
+        return {"status": "success", "message": "Past orders retrieved.", "data": response}
+    return {"status": "error", "message": "Failed to fetch past orders."}
 
 
 def get_tracked_tokens(reasons):
@@ -68,27 +61,24 @@ def get_tracked_tokens(reasons):
     data = {"reasons": reasons}
     response = make_authenticated_request("/trade/get-tracked-tokens", method="POST", data=data)
     if response:
-        print("Tracked Tokens:", response)
-        return response
-    return None
-
+        return {"status": "success", "message": "Tracked tokens retrieved.", "data": response}
+    return {"status": "error", "message": "Failed to fetch tracked tokens."}
 
 
 def get_tracked_token(token_id):
     """Get details of a tracked token."""
     response = make_authenticated_request(f"/trade/get-tracked-token?mint={token_id}", method="GET")
     if response:
-        print("Tracked Token:", response)
-        return response
-    return None
+        return {"status": "success", "message": "Tracked token retrieved.", "data": response}
+    return {"status": "error", "message": "Failed to fetch tracked token."}
+
 
 def get_spl_token(mint):
-    """Get details of a tracked token."""
+    """Get details of a SPL token."""
     response = make_authenticated_request(f"/trade/spl-token?mint={mint}", method="GET")
     if response:
-        print("Tracked Token:", response)
-        return response
-    return None
+        return {"status": "success", "message": "SPL token details retrieved.", "data": response}
+    return {"status": "error", "message": "Failed to fetch SPL token details."}
 
 
 def get_reasons_from_input(input_text):
@@ -98,74 +88,39 @@ def get_reasons_from_input(input_text):
         "high volume": "high_volume",
         "low cap": "low_cap",
         "price drop": "price_drop",
-        # Add more mappings here as needed
     }
-
-    # Process the user input
     input_text = input_text.lower()
-    reasons = []
+    reasons = [code for reason, code in reason_map.items() if reason in input_text]
 
-    # Look for keywords in the input text
-    for reason, code in reason_map.items():
-        if reason in input_text:
-            reasons.append(code)
-
-    # Return the reasons found
     if reasons:
         return reasons
-    else:
-        print("No valid reasons found in the input.")
-        return None
+    return None
 
-def trade_voice_interaction(command):
-    """Handle trade commands."""
+
+def trade_voice_interaction(command, data=None):
+    """
+    Handle trade-related commands.
+    :param command: The command string provided by the user.
+    :param data: Optional dictionary containing additional data for commands.
+    """
     if 'buy' in command and 'create' not in command:
-        print("What token would you like to buy?")
-        token_data = input()
-        if token_data:
-            response = buy_token(token_data)
-            print(response)
+        return buy_token(data) if data else {"status": "error", "message": "Token data required to buy."}
     elif 'sell' in command and 'create' not in command:
-        print("What token would you like to sell?")
-        token_data = input()
-        if token_data:
-            response = sell_token(token_data)
-            print(response)
+        return sell_token(data) if data else {"status": "error", "message": "Token data required to sell."}
     elif 'buy' in command and 'create' in command:
-        print("What order would you like to create?")
-        order_data = input()
-        if order_data:
-            response = create_buy_order(order_data)
-            print(response)
+        return create_buy_order(data) if data else {"status": "error", "message": "Order data required to create buy order."}
     elif 'sell' in command and 'create' in command:
-        print("What order would you like to create?")
-        order_data = input()
-        if order_data:
-            response = create_sell_order(order_data)
-            print(response)
+        return create_sell_order(data) if data else {"status": "error", "message": "Order data required to create sell order."}
     elif 'cancel' in command:
-        print("What is the order ID?")
-        order_id = input()
-        if order_id:
-            response = cancel_order(order_id)
-            print(response)
+        return cancel_order(data.get("orderKey")) if data and "orderKey" in data else {"status": "error", "message": "Order ID required to cancel order."}
     elif 'live' in command:
-        response = get_live_orders()
-        print(response)
+        return get_live_orders()
     elif 'past' in command:
-        response = get_past_orders()
-        print(response)
+        return get_past_orders()
     elif 'tokens' in command:
-        reasons = input("What are the reasons for tracking the tokens?")
-        reasons = get_reasons_from_input(reasons)
-        if reasons:
-            response = get_tracked_tokens(reasons)
-            print(response)
+        reasons = get_reasons_from_input(data.get("reasons", "")) if data else None
+        return get_tracked_tokens(reasons) if reasons else {"status": "error", "message": "Valid reasons required to fetch tracked tokens."}
     elif 'token' in command:
-        print("What is the token ID?")
-        token_id = input()
-        if token_id:
-            response = get_tracked_token(token_id)
-            print(response)
+        return get_tracked_token(data.get("mint")) if data and "mint" in data else {"status": "error", "message": "Token ID required to fetch tracked token details."}
     else:
-        print("I'm not sure how to handle that trade command.")
+        return {"status": "error", "message": "Unknown trade command."}
