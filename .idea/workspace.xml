@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dc16b96e-bb38-4ae8-b81a-f8120ee4a04e" name="Changes" comment="Added voice recognition and speech">
-      <change afterPath="$PROJECT_DIR$/src/bot_logic/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api_requests.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot_logic/api_requests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot_logic/auth.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chat.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/extra/chat.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/configuration.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot_logic/configuration.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main_kivy.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/extra/main_kivy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skye.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/extra/skye.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/trade.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot_logic/trade.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot_logic/user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/voice_interaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot_logic/voice_interaction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/wallet.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot_logic/wallet.py" afterDir="false" />
-    </list>
+    <list default="true" id="dc16b96e-bb38-4ae8-b81a-f8120ee4a04e" name="Changes" comment="Added voice recognition and speech" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -197,7 +183,7 @@
       <workItem from="1732190855868" duration="71000" />
       <workItem from="1732193129180" duration="6226000" />
       <workItem from="1732240532735" duration="4270000" />
-      <workItem from="1732254674887" duration="5079000" />
+      <workItem from="1732254674887" duration="5259000" />
     </task>
     <task id="LOCAL-00001" summary="Added voice recognition and speech">
       <option name="closed" value="true" />
