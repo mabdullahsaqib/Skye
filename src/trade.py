@@ -38,7 +38,7 @@ def create_sell_order(order_data):
 
 def cancel_order(order_id):
     """Cancel a trade order."""
-    response = make_authenticated_request("/trade/cancel-order", method="POST", data={"order_id": order_id})
+    response = make_authenticated_request("/trade/cancel-order", method="POST", data={"orderKey": order_id})
     if response:
         print("Order Canceled:", response)
         return response
@@ -63,23 +63,59 @@ def get_past_orders():
     return None
 
 
-def get_tracked_tokens():
-    """Get all tracked tokens."""
-    response = make_authenticated_request("/trade/get-tracked-tokens", method="POST")
+def get_tracked_tokens(reasons):
+    """Get all tracked tokens with specified reasons."""
+    data = {"reasons": reasons}
+    response = make_authenticated_request("/trade/get-tracked-tokens", method="POST", data=data)
     if response:
         print("Tracked Tokens:", response)
         return response
     return None
 
 
+
 def get_tracked_token(token_id):
     """Get details of a tracked token."""
-    response = make_authenticated_request(f"/trade/get-tracked-token?token_id={token_id}", method="GET")
+    response = make_authenticated_request(f"/trade/get-tracked-token?mint={token_id}", method="GET")
     if response:
         print("Tracked Token:", response)
         return response
     return None
 
+def get_spl_token(mint):
+    """Get details of a tracked token."""
+    response = make_authenticated_request(f"/trade/spl-token?mint={mint}", method="GET")
+    if response:
+        print("Tracked Token:", response)
+        return response
+    return None
+
+
+def get_reasons_from_input(input_text):
+    """Converts user input into a list of reasons."""
+    reason_map = {
+        "new pool": "new_pool",
+        "high volume": "high_volume",
+        "low cap": "low_cap",
+        "price drop": "price_drop",
+        # Add more mappings here as needed
+    }
+
+    # Process the user input
+    input_text = input_text.lower()
+    reasons = []
+
+    # Look for keywords in the input text
+    for reason, code in reason_map.items():
+        if reason in input_text:
+            reasons.append(code)
+
+    # Return the reasons found
+    if reasons:
+        return reasons
+    else:
+        print("No valid reasons found in the input.")
+        return None
 
 def trade_voice_interaction(command):
     """Handle trade commands."""
@@ -120,8 +156,11 @@ def trade_voice_interaction(command):
         response = get_past_orders()
         print(response)
     elif 'tokens' in command:
-        response = get_tracked_tokens()
-        print(response)
+        reasons = input("What are the reasons for tracking the tokens?")
+        reasons = get_reasons_from_input(reasons)
+        if reasons:
+            response = get_tracked_tokens(reasons)
+            print(response)
     elif 'token' in command:
         print("What is the token ID?")
         token_id = input()

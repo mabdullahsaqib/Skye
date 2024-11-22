@@ -11,7 +11,7 @@ def get_user_data():
 
 def change_username(new_username):
     """Change the username of the current user."""
-    response = make_authenticated_request("/user/change-username", method="POST", data={"new_username": new_username})
+    response = make_authenticated_request("/user/change-username", method="POST", data={"username": new_username})
     if response:
         print("Username Changed:", response)
         return response
@@ -25,7 +25,7 @@ def user_voice_interaction(command):
         print(response)
     elif 'change username' in command:
         print("What would you like your new username to be?")
-        new_username = input()
+        new_username = input("Enter new username: ")
         if new_username:
             response = change_username(new_username)
             print(response)

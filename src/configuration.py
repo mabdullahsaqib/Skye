@@ -1,12 +1,35 @@
 from api_requests import make_authenticated_request
 
-def update_config(config_data):
-    """Update the configuration."""
+def update_config(config_data: dict) -> dict:
+    """
+    Updates the configuration settings.
+
+    Args:
+        config_data (dict): A dictionary containing configuration fields to update.
+            Example fields include:
+            - amountInSOL: float
+            - autoSniping: bool
+            - burnLP: bool
+            - dexPaid: bool
+            - jitoTip: float
+            - launchTime: int
+            - maxMarketCap: int
+            - minMarketCap: int
+            - renounced: bool
+            - slippage: int
+            - top10HP: int
+
+    Returns:
+        dict: Updated configuration details or None if the request fails.
+    """
     response = make_authenticated_request("/config/update", method="POST", data=config_data)
     if response:
-        print("Configuration Updated:", response)
-        return response
-    return None
+        print("Configuration updated successfully:", response.get("data", {}))
+        return response.get("data")
+    else:
+        print("Failed to update configuration.")
+        return None
+
 
 
 def get_config():

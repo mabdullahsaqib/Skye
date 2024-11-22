@@ -5,29 +5,40 @@ import requests
 BASE_URL = "http://217.196.51.52:4009"
 
 
-def login(username, password):
-    """Logs in a user and returns the auth token."""
+def login(wallet: str, message: str):
+    """
+    Logs in a user using their wallet address and a message.
+
+    Args:
+        wallet (str): Wallet address of the user.
+        message (str): Message to authenticate the user.
+
+    Returns:
+        dict: A dictionary containing the token and user data if successful.
+    """
     url = f"{BASE_URL}/user/login"
     payload = {
-        "username": username,
-        "password": password
+        "wallet": wallet,
+        "message": message
     }
 
     response = requests.post(url, json=payload)
 
     if response.status_code == 200:
-        # Assuming the response contains the token
-        token = response.json().get("token")
+        data = response.json().get("data", {})
+        token = data.get("token")
+        os.environ["AUTH_TOKEN"] = token  # Store token for subsequent requests
         print(f"Login successful! Token: {token}")
-        os.environ["AUTH_TOKEN"] = token  # Store token in the environment variable
-        return token
+        return data
     else:
         print(f"Login failed! Error: {response.text}")
         return None
 
 
 def logout():
-    """Logs out the user and invalidates the auth token."""
+    """
+    Logs out the user and invalidates the auth token.
+    """
     url = f"{BASE_URL}/user/logout"
     token = os.getenv("AUTH_TOKEN")
 
@@ -39,11 +50,11 @@ def logout():
 
         if response.status_code == 200:
             print("Logged out successfully!")
-            os.environ["AUTH_TOKEN"] = ""  # Clear the stored token
+            os.environ["AUTH_TOKEN"] = ""  # Clear the token from the environment
         else:
             print(f"Logout failed! Error: {response.text}")
     else:
-        print("No token found, cannot log out.")
+        print("No token found. Cannot log out.")
 
 
 def get_token():

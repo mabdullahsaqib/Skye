@@ -11,7 +11,7 @@ def generate_wallet():
 
 def add_wallet(wallet_data):
     """Add a new wallet."""
-    response = make_authenticated_request("/wallet/add", method="POST", data=wallet_data)
+    response = make_authenticated_request("/wallet/add", method="POST", data={"privateKey":wallet_data})
     if response:
         print("Wallet Added:", response)
         return response
@@ -20,7 +20,7 @@ def add_wallet(wallet_data):
 
 def remove_wallet(wallet_id):
     """Remove a wallet."""
-    response = make_authenticated_request("/wallet/remove", method="POST", data={"wallet_id": wallet_id})
+    response = make_authenticated_request("/wallet/remove", method="POST", data={"address": wallet_id})
     if response:
         print("Wallet Removed:", response)
         return response
@@ -32,6 +32,14 @@ def get_default_wallet():
     response = make_authenticated_request("/wallet/default", method="GET")
     if response:
         print("Default Wallet:", response)
+        return response
+    return None
+
+def set_default_wallet(wallet_id):
+    """Set the default wallet."""
+    response = make_authenticated_request("/wallet/default", method="POST", data={"address": wallet_id})
+    if response:
+        print("Default Wallet Set:", response)
         return response
     return None
 
@@ -47,7 +55,7 @@ def get_all_wallets():
 
 def get_wallet_balance(wallet_id):
     """Get the balance of a specific wallet."""
-    response = make_authenticated_request(f"/wallet/balance?wallet_id={wallet_id}", method="GET")
+    response = make_authenticated_request(f"/wallet/balance?address={wallet_id}", method="GET")
     if response:
         print("Wallet Balance:", response)
         return response
@@ -60,26 +68,28 @@ def wallet_voice_interaction(command):
         response = generate_wallet()
         print(response)
     elif 'add' in command:
-        print("What wallet would you like to add?")
-        wallet_data = input()
+        wallet_data = input("Please provide the wallet key : ")
         if wallet_data:
             response = add_wallet(wallet_data)
             print(response)
     elif 'remove' in command or 'delete' in command:
-        print("Which wallet would you like to remove?")
-        wallet_id = input()
+        wallet_id = input("Please provide the wallet address : ")
         if wallet_id:
             response = remove_wallet(wallet_id)
             print(response)
-    elif 'default' in command:
+    elif 'get' in command and 'default' in command:
         response = get_default_wallet()
         print(response)
+    elif 'set' in command and 'default' in command:
+        wallet_id = input("Please provide the wallet address : ")
+        if wallet_id:
+            response = set_default_wallet(wallet_id)
+            print(response)
     elif 'all' in command or 'list' in command:
         response = get_all_wallets()
         print(response)
     elif 'balance' in command:
-        print("Which wallet would you like to check the balance of?")
-        wallet_id = input()
+        wallet_id = input("Please provide the wallet address : ")
         if wallet_id:
             response = get_wallet_balance(wallet_id)
             print(response)
