@@ -4,30 +4,29 @@ def get_user_data():
     """Get the current user's data."""
     response = make_authenticated_request("/user/get-me", method="GET")
     if response:
-        print("User Data:", response)
-        return response
-    return None
+        return {"status": "success", "data": response}
+    return {"status": "error", "message": "Failed to fetch user data."}
 
 
 def change_username(new_username):
     """Change the username of the current user."""
     response = make_authenticated_request("/user/change-username", method="POST", data={"username": new_username})
     if response:
-        print("Username Changed:", response)
-        return response
-    return None
+        return {"status": "success", "message": "Username changed successfully.", "data": response}
+    return {"status": "error", "message": "Failed to change username."}
 
 
-def user_voice_interaction(command):
-    """Handle the user's command and take appropriate action."""
+def user_voice_interaction(command, data=None):
+    """
+    Handle the user's command and take appropriate action.
+    :param command: The command issued by the user.
+    :param data: Optional data required for specific commands (e.g., new username).
+    """
     if 'data' in command or 'get' in command:
-        response = get_user_data()
-        print(response)
+        return get_user_data()
     elif 'change username' in command:
-        print("What would you like your new username to be?")
-        new_username = input("Enter new username: ")
-        if new_username:
-            response = change_username(new_username)
-            print(response)
+        if data and "new_username" in data:
+            return change_username(data["new_username"])
+        return {"status": "error", "message": "New username is required to change username."}
     else:
-        print("I'm not sure how to handle that command.")
+        return {"status": "error", "message": "Unknown user command."}
