@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from bot_logic.auth import login, logout, validate_token
+from bot_logic.auth import login, logout
 from bot_logic.voice_interaction import handle_user_command
 
 app = Flask(__name__)
@@ -89,4 +89,4 @@ def logout_user():
 
 
 if __name__ == "__main__":
-    app.run(host="https://skye-2xsolution.vercel.app/")
+    app.run(Debug = True)
