@@ -1,4 +1,4 @@
-from api_requests import make_authenticated_request
+from .api_requests import make_authenticated_request
 
 def get_user_data():
     """Get the current user's data."""

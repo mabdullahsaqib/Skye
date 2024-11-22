@@ -1,4 +1,4 @@
-from api_requests import make_authenticated_request
+from .api_requests import make_authenticated_request
 
 def buy_token(token_data):
     """Buy a token."""

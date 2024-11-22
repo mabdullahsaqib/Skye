@@ -1,5 +1,5 @@
 import requests
-from auth import get_token
+from .auth import get_token
 
 BASE_URL = "http://217.196.51.52:4009"
 

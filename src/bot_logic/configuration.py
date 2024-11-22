@@ -1,4 +1,4 @@
-from api_requests import make_authenticated_request
+from .api_requests import make_authenticated_request
 
 
 def update_config(config_data: dict) -> dict:

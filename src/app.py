@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
-from auth import login, logout
-from voice_interaction import handle_user_command
+from bot_logic.auth import login, logout
+from bot_logic.voice_interaction import handle_user_command
 
 app = Flask(__name__)
 

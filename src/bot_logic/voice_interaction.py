@@ -1,8 +1,8 @@
-from auth import logout
-from configuration import config_voice_interaction
-from trade import trade_voice_interaction
-from user import user_voice_interaction
-from wallet import wallet_voice_interaction
+from .auth import logout
+from .user import user_voice_interaction
+from .wallet import wallet_voice_interaction
+from .trade import trade_voice_interaction
+from .configuration import config_voice_interaction
 
 # commands
 wallet_commands = ['generate', 'add', 'remove', 'balance', 'default', 'all', 'list']

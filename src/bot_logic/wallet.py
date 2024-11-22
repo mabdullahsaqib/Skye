@@ -1,4 +1,4 @@
-from api_requests import make_authenticated_request
+from .api_requests import make_authenticated_request
 
 def generate_wallet():
     """Generate a new wallet."""
