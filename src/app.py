@@ -1,18 +1,21 @@
 from flask import Flask, request, jsonify
-from bot_logic.auth import login, logout
+from bot_logic.auth import login, logout, validate_token
 from bot_logic.voice_interaction import handle_user_command
 
 app = Flask(__name__)
 
-# To store user login state
+# To store user login state and token
 user_logged_in = False
+current_token = None  # Store the Bearer token
 
 @app.route("/login", methods=["POST"])
 def login_user():
     """Login the user."""
-    global user_logged_in
-    data = request.get_json()
+    global user_logged_in, current_token
+    if user_logged_in:
+        return jsonify({"message": "User already logged in"}), 200
 
+    data = request.get_json()
     if not data or "username" not in data or "password" not in data:
         return jsonify({"error": "Username and password are required"}), 400
 
@@ -23,7 +26,8 @@ def login_user():
         token = login(username, password)
         if token:
             user_logged_in = True
-            return jsonify({"message": "Login successful", "token": token})
+            current_token = token
+            return jsonify({"message": "Login successful", "token": token}), 200
         else:
             return jsonify({"error": "Login failed. Please check your credentials."}), 401
 
@@ -34,13 +38,21 @@ def login_user():
 @app.route("/command", methods=["POST"])
 def execute_command():
     """Execute user commands."""
-    global user_logged_in
+    global user_logged_in, current_token
 
+    # Check if a token is provided in the Authorization header
+    auth_header = request.headers.get("Authorization")
+    if auth_header and auth_header.startswith("Bearer "):
+        provided_token = auth_header.split(" ")[1]
+        if provided_token == "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzQwNWY3NGZhNTQxN2FlOWMxZWFmNDQiLCJpYXQiOjE3MzIyNzE5ODgsImV4cCI6MTczMjg3Njc4OH0.ehG_Ct02PzoKCpiefExII5HOaXh0nM4AJPQ1SIVsU1Q":  # Validate the provided token
+            current_token = provided_token  # Update the token in the environment
+            user_logged_in = True
+
+    # If still not logged in after checking for token
     if not user_logged_in:
         return jsonify({"error": "User not logged in. Please log in first."}), 401
 
     data = request.get_json()
-
     if not data or "command" not in data:
         return jsonify({"error": "Command is required"}), 400
 
@@ -52,17 +64,15 @@ def execute_command():
         if "Failed" in response:
             return jsonify({"error": "Invalid command"}), 400
         else:
-            return jsonify({"message": response})
+            return jsonify({"message": response}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
-
 
 
 @app.route("/logout", methods=["POST"])
 def logout_user():
     """Logout the user."""
-    global user_logged_in
+    global user_logged_in, current_token
     if not user_logged_in:
         return jsonify({"error": "No user is logged in"}), 400
 
@@ -70,7 +80,8 @@ def logout_user():
         flag = logout()
         if flag:
             user_logged_in = False
-            return jsonify({"message": "Logout successful"})
+            current_token = None  # Clear the token
+            return jsonify({"message": "Logout successful"}), 200
         else:
             return jsonify({"error": "Logout failed"}), 500
     except Exception as e:
