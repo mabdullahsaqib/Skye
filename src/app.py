@@ -50,6 +50,8 @@ def execute_command():
             current_token = provided_token  # Update the token in the environment
             user_logged_in = True
             os.environ["AUTH_TOKEN"] = provided_token  # Store token for subsequent requests
+        else:
+            return jsonify({"error": "Invalid token"}), 401
 
     # If still not logged in after checking for token
     if not user_logged_in:

@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="dc16b96e-bb38-4ae8-b81a-f8120ee4a04e" name="Changes" comment="Added voice recognition and speech">
       <change beforePath="$PROJECT_DIR$/src/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot_logic/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot_logic/auth.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -217,6 +216,7 @@
       <workItem from="1732272300957" duration="328000" />
       <workItem from="1732276389511" duration="2094000" />
       <workItem from="1732289791511" duration="111000" />
+      <workItem from="1732290135517" duration="297000" />
     </task>
     <task id="LOCAL-00001" summary="Added voice recognition and speech">
       <option name="closed" value="true" />
