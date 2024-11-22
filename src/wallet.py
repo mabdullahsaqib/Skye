@@ -1,45 +1,4 @@
-import pyttsx3
-import speech_recognition as sr
 from api_requests import make_authenticated_request
-
-# Initialize text-to-speech engine
-engine = pyttsx3.init()
-voices = engine.getProperty('voices')
-engine.setProperty('voice', voices[1].id)  # Set to a different voice if needed
-engine.setProperty('rate', 150)
-
-# Initialize recognizer for voice input
-recognizer = sr.Recognizer()
-
-
-def speak_response(text):
-    """Speak out the provided text."""
-    engine.say(text)
-    engine.runAndWait()
-
-
-def listen_to_command():
-    """Listen to the user's voice input and return it as text."""
-    with sr.Microphone() as source:
-        recognizer.adjust_for_ambient_noise(source)
-        while True:
-            try:
-                print("Listening for your command...")
-                audio_data = recognizer.listen(source)
-                user_input = recognizer.recognize_google(audio_data)
-                print(f"You said: {user_input}")
-                return user_input
-            except sr.WaitTimeoutError:
-                continue
-            except sr.UnknownValueError:
-                print("Sorry, I couldn't understand that.")
-                speak_response("Sorry, I didn't catch that.")
-                return None
-            except sr.RequestError:
-                print("Speech recognition service is unavailable.")
-                speak_response("Sorry, there was an issue with the service.")
-                return None
-
 
 def generate_wallet():
     """Generate a new wallet."""
@@ -99,30 +58,30 @@ def wallet_voice_interaction(command):
     """Handle voice commands related to wallets."""
     if 'generate' in command or 'create' in command:
         response = generate_wallet()
-        speak_response(response)
+        print(response)
     elif 'add' in command:
-        speak_response("What wallet would you like to add?")
-        wallet_data = listen_to_command()
+        print("What wallet would you like to add?")
+        wallet_data = input()
         if wallet_data:
             response = add_wallet(wallet_data)
-            speak_response(response)
+            print(response)
     elif 'remove' in command or 'delete' in command:
-        speak_response("Which wallet would you like to remove?")
-        wallet_id = listen_to_command()
+        print("Which wallet would you like to remove?")
+        wallet_id = input()
         if wallet_id:
             response = remove_wallet(wallet_id)
-            speak_response(response)
+            print(response)
     elif 'default' in command:
         response = get_default_wallet()
-        speak_response(response)
+        print(response)
     elif 'all' in command or 'list' in command:
         response = get_all_wallets()
-        speak_response(response)
+        print(response)
     elif 'balance' in command:
-        speak_response("Which wallet would you like to check the balance of?")
-        wallet_id = listen_to_command()
+        print("Which wallet would you like to check the balance of?")
+        wallet_id = input()
         if wallet_id:
             response = get_wallet_balance(wallet_id)
-            speak_response(response)
+            print(response)
     else:
-        speak_response("I'm not sure how to handle that wallet command.")
+        print("I'm not sure how to handle that wallet command.")
