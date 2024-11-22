@@ -35,6 +35,31 @@ def login(wallet: str, message: str):
         return None
 
 
+def validate_token(token: str):
+    """
+    Validates the provided auth token.
+
+    Args:
+        token (str): Auth token to validate.
+
+    Returns:
+        bool: True if the token is valid, False otherwise.
+    """
+    url = f"{BASE_URL}/user/get-me"
+    headers = {
+        "Authorization": f"Bearer {token}"
+    }
+
+    response = requests.get(url, headers=headers)
+
+    if response.status_code == 200:
+        print("Token is valid!")
+        return True
+    else:
+        print(f"Token validation failed! Error: {response.text}")
+        return False
+
+
 def logout():
     """
     Logs out the user and invalidates the auth token.

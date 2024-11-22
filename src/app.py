@@ -1,6 +1,6 @@
 import os
 from flask import Flask, request, jsonify
-from bot_logic.auth import login, logout
+from bot_logic.auth import login, logout, validate_token
 from bot_logic.voice_interaction import handle_user_command
 
 app = Flask(__name__)
@@ -8,6 +8,7 @@ app = Flask(__name__)
 # To store user login state and token
 user_logged_in = False
 current_token = None  # Store the Bearer token
+
 
 @app.route("/login", methods=["POST"])
 def login_user():
@@ -45,7 +46,7 @@ def execute_command():
     auth_header = request.headers.get("Authorization")
     if auth_header and auth_header.startswith("Bearer "):
         provided_token = auth_header.split(" ")[1]
-        if provided_token == "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzQwNWY3NGZhNTQxN2FlOWMxZWFmNDQiLCJpYXQiOjE3MzIyNzE5ODgsImV4cCI6MTczMjg3Njc4OH0.ehG_Ct02PzoKCpiefExII5HOaXh0nM4AJPQ1SIVsU1Q":  # Validate the provided token
+        if validate_token(provided_token):  # Validate the provided token
             current_token = provided_token  # Update the token in the environment
             user_logged_in = True
             os.environ["AUTH_TOKEN"] = provided_token  # Store token for subsequent requests
@@ -92,4 +93,4 @@ def logout_user():
 
 
 if __name__ == "__main__":
-    app.run(Debug = True)
+    app.run(Debug=True)
