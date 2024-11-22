@@ -25,17 +25,3 @@ def handle_user_command(command, data= None):
         return "User logged out."
     else:
         return "Failed"
-#
-# def start():
-#     """Start the bot and handle voice interaction."""
-#     print("Welcome to Skye! How can I assist you today?")
-#
-#     while True:
-#         command = input("Command : ")
-#         if command:
-#             if 'exit' in command.lower():
-#                 print("Goodbye!")
-#                 break
-#             handle_user_command(command)
-#         else:
-#             print("Sorry, I didn't catch that. Can you say it again?")
