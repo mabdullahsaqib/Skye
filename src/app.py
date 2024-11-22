@@ -21,8 +21,12 @@ def login_user():
 
     try:
         token = login(username, password)
-        user_logged_in = True
-        return jsonify({"message": "Login successful", "token": token})
+        if token:
+            user_logged_in = True
+            return jsonify({"message": "Login successful", "token": token})
+        else:
+            return jsonify({"error": "Login failed. Please check your credentials."}), 401
+
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -45,7 +49,10 @@ def execute_command():
 
     try:
         response = handle_user_command(command, additional_data)
-        return jsonify({"message": "Command executed successfully", "response": response})
+        if "Failed" in response:
+            return jsonify({"error": "Invalid command"}), 400
+        else:
+            return jsonify({"message": response})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -60,12 +67,15 @@ def logout_user():
         return jsonify({"error": "No user is logged in"}), 400
 
     try:
-        logout()
-        user_logged_in = False
-        return jsonify({"message": "Logout successful"})
+        flag = logout()
+        if flag:
+            user_logged_in = False
+            return jsonify({"message": "Logout successful"})
+        else:
+            return jsonify({"error": "Logout failed"}), 500
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="https://skye-2xsolution.vercel.app/")

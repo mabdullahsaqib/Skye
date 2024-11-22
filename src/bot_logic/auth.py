@@ -51,10 +51,13 @@ def logout():
         if response.status_code == 200:
             print("Logged out successfully!")
             os.environ["AUTH_TOKEN"] = ""  # Clear the token from the environment
+            return True
         else:
             print(f"Logout failed! Error: {response.text}")
+            return False
     else:
         print("No token found. Cannot log out.")
+        return False
 
 
 def get_token():

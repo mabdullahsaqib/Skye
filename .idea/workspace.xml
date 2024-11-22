@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc16b96e-bb38-4ae8-b81a-f8120ee4a04e" name="Changes" comment="Added voice recognition and speech">
-      <change afterPath="$PROJECT_DIR$/src/vercel.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot_logic/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot_logic/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot_logic/voice_interaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot_logic/voice_interaction.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +53,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\Documents\PyCharm\Skye" />
       <recent name="C:\Users\Administrator\Documents\PyCharm\Skye\src\extra" />
       <recent name="C:\Users\Administrator\Documents\PyCharm\Skye\src\bot_logic" />
       <recent name="C:\Users\Administrator\Documents\PyCharm\Skye\src" />
@@ -187,7 +190,8 @@
       <workItem from="1732193129180" duration="6226000" />
       <workItem from="1732240532735" duration="4270000" />
       <workItem from="1732254674887" duration="5259000" />
-      <workItem from="1732266339400" duration="3374000" />
+      <workItem from="1732266339400" duration="3900000" />
+      <workItem from="1732272300957" duration="328000" />
     </task>
     <task id="LOCAL-00001" summary="Added voice recognition and speech">
       <option name="closed" value="true" />

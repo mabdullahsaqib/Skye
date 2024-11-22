@@ -24,7 +24,7 @@ def handle_user_command(command, data= None):
         logout()
         return "User logged out."
     else:
-        return "Sorry, I didn't understand the command. Can you repeat it?"
+        return "Failed"
 #
 # def start():
 #     """Start the bot and handle voice interaction."""
