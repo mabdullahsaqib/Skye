@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, jsonify
 from bot_logic.auth import login, logout
 from bot_logic.voice_interaction import handle_user_command
@@ -47,6 +48,7 @@ def execute_command():
         if provided_token == "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzQwNWY3NGZhNTQxN2FlOWMxZWFmNDQiLCJpYXQiOjE3MzIyNzE5ODgsImV4cCI6MTczMjg3Njc4OH0.ehG_Ct02PzoKCpiefExII5HOaXh0nM4AJPQ1SIVsU1Q":  # Validate the provided token
             current_token = provided_token  # Update the token in the environment
             user_logged_in = True
+            os.environ["AUTH_TOKEN"] = provided_token  # Store token for subsequent requests
 
     # If still not logged in after checking for token
     if not user_logged_in:
@@ -60,6 +62,7 @@ def execute_command():
     additional_data = data.get("data")  # Optional data for specific commands
 
     try:
+        print(f"Received command: {command}")
         response = handle_user_command(command, additional_data)
         if "Failed" in response:
             return jsonify({"error": "Invalid command"}), 400
