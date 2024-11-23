@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="dc16b96e-bb38-4ae8-b81a-f8120ee4a04e" name="Changes" comment="Added voice recognition and speech">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extra/chat.py" beforeDir="false" afterPath="$PROJECT_DIR$/extra/chat.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot_logic/voice_interaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot_logic/voice_interaction.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot_logic/trade.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot_logic/trade.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot_logic/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot_logic/user.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -221,6 +223,7 @@
       <workItem from="1732290135517" duration="297000" />
       <workItem from="1732291569145" duration="709000" />
       <workItem from="1732293488193" duration="686000" />
+      <workItem from="1732352735050" duration="5352000" />
     </task>
     <task id="LOCAL-00001" summary="Added voice recognition and speech">
       <option name="closed" value="true" />

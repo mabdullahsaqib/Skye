@@ -101,6 +101,8 @@ def trade_voice_interaction(command, data=None):
         return get_live_orders()
     elif 'past' in command:
         return get_past_orders()
+    elif 'spl' in command:
+        return get_spl_token(data.get("mint")) if data and "mint" in data else {"status": "error", "message": "Mint ID required to fetch SPL token details."}
     elif 'tokens' in command:
         return get_tracked_tokens(data)
     elif 'token' in command:

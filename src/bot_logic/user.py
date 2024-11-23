@@ -26,7 +26,7 @@ def user_voice_interaction(command, data=None):
         return get_user_data()
     elif 'change username' in command:
         if data and "new_username" in data:
-            return change_username(data["new_username"])
+            return change_username(data["username"])
         return {"status": "error", "message": "New username is required to change username."}
     else:
         return {"status": "error", "message": "Unknown user command."}

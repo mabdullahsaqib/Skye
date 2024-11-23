@@ -11,7 +11,7 @@ GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 SKYE_MODEL_CONFIG = os.getenv('SKYE_MODEL_CONFIG')
 
 # Configure the generative model
-genai.configure()
+genai.configure(api_key=GEMINI_API_KEY)
 
 # Set up model configuration
 generation_config = {
