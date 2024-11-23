@@ -71,11 +71,22 @@ Expected Keys:
 - price: A price value for creating orders (if applicable).
 - hours: A duration in hours for timed operations (if applicable).
 - reasons: A list of reasons for token tracking (if applicable).
-- config_data: A dictionary of configuration fields like "amountInSOL" or "slippage" (if applicable).
 - orderKey: The key or ID of an order (if applicable).
 - new_username: A new username for the user (if applicable).
 - token_name: The name of the token or coin (if applicable).
 - wallet_label: The label of the wallet (if applicable).
+- amountInSOLO: The amount in SOLO tokens (if applicable).
+- autoSniping: A boolean value for enabling auto-sniping (if applicable).
+- burnLP: A boolean value for burning LP tokens (if applicable).
+- dexPaid: A boolean value for paying DEX fees (if applicable).
+- jitoTip: A boolean value for tipping Jito (if applicable).
+- launchTime: A timestamp for the launch time (if applicable).
+- maxMarketCap: A maximum market cap value (if applicable).
+- mevProtection: A boolean value for MEV protection (if applicable).
+- minMarketCap: A minimum market cap value (if applicable).
+- renounced: A boolean value for renouncing ownership (if applicable).
+- slippage: A slippage value (if applicable).
+- top10HP: A value for the top 10 holders percentage (if applicable).
 
 Example Inputs and Outputs:
 
