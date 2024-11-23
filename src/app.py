@@ -59,7 +59,7 @@ def execute_command():
     print(f"Raw command: {raw_command}\n\n")
 
     parsed_command_response = model.generate_content(f"""
-Extract the required information from the following command and return a dictionary. The dictionary keys should match the expected fields for the Skye Bot API commands, and the values should be extracted or inferred from the command. If a value is missing in the command, leave it as `null`.
+Extract the required information from the following command and return a dictionary. The dictionary keys should match the expected fields for the Skye Bot API commands, and the values should be extracted or inferred from the command. If a value is missing in the command, leave it.
 
 Expected Keys:
 - command: The main action requested (e.g., "buy token", "sell token").
@@ -91,13 +91,13 @@ Expected Keys:
 Example Inputs and Outputs:
 
 1. Input: "buy token with mint XYZ123 and wallet address ABC456"
-   Output: {{"command": "buy token", "mint": "XYZ123", "address": "ABC456", "privateKey": null, "percentage": null, "amount": null, "price": null, "hours": null, "reasons": null, "config_data": null, "orderKey": null}}
+   Output: {{"command": "buy token", "mint": "XYZ123", "address": "ABC456"}}
 
 2. Input: "sell token with mint XYZ123 at 50% to wallet DEF789"
-   Output: {{"command": "sell token", "mint": "XYZ123", "address": "DEF789", "privateKey": null, "percentage": "50", "amount": null, "price": null, "hours": null, "reasons": null, "config_data": null, "orderKey": null}}
+   Output: {{"command": "sell token", "mint": "XYZ123", "address": "DEF789","percentage": "50"}}
 
 3. Input: "generate wallet"
-   Output: {{"command": "generate wallet", "mint": null, "address": null, "privateKey": null, "percentage": null, "amount": null, "price": null, "hours": null, "reasons": null, "config_data": null, "orderKey": null}}
+   Output: {{"command": "generate wallet"}}
 
 
 Only provide the dictionary in the response. nothing more, nothing less. Don't even write anything or before the brackets.
