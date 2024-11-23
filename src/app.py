@@ -73,6 +73,8 @@ Expected Keys:
 - reasons: A list of reasons for token tracking (if applicable).
 - config_data: A dictionary of configuration fields like "amountInSOL" or "slippage" (if applicable).
 - orderKey: The key or ID of an order (if applicable).
+- token_name: The name of the token or coin (if applicable).
+- wallet_label: The label of the wallet (if applicable).
 
 Example Inputs and Outputs:
 
@@ -106,7 +108,7 @@ Now process the following command: "{raw_command}"
             return jsonify({"error": "Invalid command"}), 400
         else:
             return jsonify({"message": response}), 200
-
+        
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
