@@ -74,7 +74,7 @@ Expected Keys:
 - orderKey: The key or ID of an order (if applicable).
 - new_username: A new username for the user (if applicable).
 - token_name: The name of the token or coin (if applicable).
-- wallet_label: The label of the wallet (if applicable).
+- label: The label of the wallet (if applicable).
 - amountInSOLO: The amount in SOLO tokens (if applicable).
 - autoSniping: A boolean value for enabling auto-sniping (if applicable).
 - burnLP: A boolean value for burning LP tokens (if applicable).
@@ -96,8 +96,8 @@ Example Inputs and Outputs:
 2. Input: "sell token with mint XYZ123 at 50% to wallet DEF789"
    Output: {{"command": "sell token", "mint": "XYZ123", "address": "DEF789","percentage": "50"}}
 
-3. Input: "generate wallet"
-   Output: {{"command": "generate wallet"}}
+3. Input: "generate wallet S bank"
+   Output: {{"command": "generate wallet", "label": "S bank"}}
 
 
 Only provide the dictionary in the response. nothing more, nothing less. Don't even write anything or before the brackets.

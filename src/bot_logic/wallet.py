@@ -1,16 +1,16 @@
 from .api_requests import make_authenticated_request
 
-def generate_wallet():
+def generate_wallet(label):
     """Generate a new wallet."""
-    response = make_authenticated_request("/wallet/generate", method="POST")
+    response = make_authenticated_request("/wallet/generate", method="POST", data={"label": label})
     if response:
         return {"status": "success", "message": "Wallet generated successfully.", "data": response}
     return {"status": "error", "message": "Failed to generate wallet."}
 
 
-def add_wallet(wallet_data):
+def add_wallet(privateKey, label):
     """Add a new wallet."""
-    response = make_authenticated_request("/wallet/add", method="POST", data={"privateKey": wallet_data})
+    response = make_authenticated_request("/wallet/add", method="POST", data={"privateKey": privateKey, "label": label})
     if response:
         return {"status": "success", "message": "Wallet added successfully.", "data": response}
     return {"status": "error", "message": "Failed to add wallet."}
@@ -55,6 +55,20 @@ def get_wallet_balance(wallet_id):
         return {"status": "success", "message": "Wallet balance retrieved.", "data": response}
     return {"status": "error", "message": "Failed to retrieve wallet balance."}
 
+def rename_wallet(wallet_id, new_label):
+    """Rename a wallet."""
+    response = make_authenticated_request("/wallet/rename", method="POST", data={"address": wallet_id, "label": new_label})
+    if response:
+        return {"status": "success", "message": "Wallet renamed successfully.", "data": response}
+    return {"status": "error", "message": "Failed to rename wallet."}
+
+def get_wallet_by_label(label):
+    """Get wallet by label."""
+    response = make_authenticated_request(f"/wallet/get-by-label?label={label}", method="GET")
+    if response:
+        return {"status": "success", "message": "Wallet retrieved.", "data": response}
+    return {"status": "error", "message": "Failed to retrieve wallet."}
+
 
 def wallet_voice_interaction(command, data=None):
     """
@@ -63,10 +77,11 @@ def wallet_voice_interaction(command, data=None):
     :param data: Optional dictionary containing additional data for the command.
     """
     if 'generate' in command or 'create' in command:
-        return generate_wallet()
+        if data and "label" in data:
+            return generate_wallet(data["label"])
     elif 'add' in command:
         if data and "privateKey" in data:
-            return add_wallet(data["privateKey"])
+            return add_wallet(data["privateKey"], data["label"])
         return {"status": "error", "message": "Private key is required to add a wallet."}
     elif 'remove' in command or 'delete' in command:
         if data and "address" in data:
@@ -74,12 +89,20 @@ def wallet_voice_interaction(command, data=None):
         return {"status": "error", "message": "Wallet address is required to remove a wallet."}
     elif 'get' in command and 'default' in command:
         return get_default_wallet()
-    elif 'set' in command and 'default' in command:
+    elif ('set' in command or 'make' in command) and 'default' in command:
         if data and "address" in data:
             return set_default_wallet(data["address"])
         return {"status": "error", "message": "Wallet address is required to set default wallet."}
     elif 'all' in command or 'list' in command:
         return get_all_wallets()
+    elif 'get' in command and 'by' in command and 'label' in command:
+        if data and "label" in data:
+            return get_wallet_by_label(data["label"])
+        return {"status": "error", "message": "Wallet label is required to fetch wallet."}
+    elif 'rename' in command:
+        if data and "address" in data and "label" in data:
+            return rename_wallet(data["address"], data["label"])
+        return {"status": "error", "message": "Wallet address and new label are required to rename a wallet."}
     elif 'balance' in command:
         if data and "address" in data:
             return get_wallet_balance(data["address"])
