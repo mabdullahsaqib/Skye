@@ -93,7 +93,7 @@ def wallet_voice_interaction(command, data=None):
         if data and "address" in data:
             return set_default_wallet(data["address"])
         return {"status": "error", "message": "Wallet address is required to set default wallet."}
-    elif 'get' in command and  'by' in command and 'label' in command:
+    elif 'get' in command and 'label' in command:
         if data and "label" in data:
             return get_wallet_by_label(data["label"])
         return {"status": "error", "message": "Wallet label is required to fetch wallet."}
