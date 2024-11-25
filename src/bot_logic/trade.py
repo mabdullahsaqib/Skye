@@ -73,12 +73,17 @@ def get_tracked_token(token_id):
     return {"status": "error", "message": "Failed to fetch tracked token."}
 
 
-def get_spl_token(mint):
+def get_spl_token(mint, label):
     """Get details of a SPL token."""
-    response = make_authenticated_request(f"/trade/spl-token?mint={mint}", method="GET")
+    if mint:
+        response = make_authenticated_request(f"/trade/spl-token?mint={mint}", method="GET")
+    elif label:
+        response = make_authenticated_request(f"/trade/spl-token?label={label}", method="GET")
+    else:
+        return {"status": "error", "message": "Mint or label required to fetch SPL token."}
     if response:
-        return {"status": "success", "message": "SPL token details retrieved.", "data": response}
-    return {"status": "error", "message": "Failed to fetch SPL token details."}
+        return {"status": "success", "message": "SPL token retrieved.", "data": response}
+    return {"status": "error", "message": "Failed to fetch SPL token."}
 
 
 def trade_voice_interaction(command, data=None):
@@ -102,7 +107,8 @@ def trade_voice_interaction(command, data=None):
     elif 'past' in command:
         return get_past_orders()
     elif 'spl' in command:
-        return get_spl_token(data.get("mint")) if data and "mint" in data else {"status": "error", "message": "Mint ID required to fetch SPL token details."}
+        if data and ("mint" in data or "label" in data):
+            return get_spl_token(data["mint"], data["label"])
     elif 'tokens' in command:
         return get_tracked_tokens(data)
     elif 'token' in command:

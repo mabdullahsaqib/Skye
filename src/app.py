@@ -73,7 +73,7 @@ Expected Keys:
 - reasons: A list of reasons for token tracking (if applicable).
 - orderKey: The key or ID of an order (if applicable).
 - new_username: A new username for the user (if applicable).
-- token_name: The name of the token or coin (if applicable).
+- label: The name of the token or coin (if applicable).
 - label: The label of the wallet (if applicable).
 - amountInSOLO: The amount in SOLO tokens (if applicable).
 - autoSniping: A boolean value for enabling auto-sniping (if applicable).

@@ -6,7 +6,7 @@ from .configuration import config_voice_interaction
 
 # commands
 wallet_commands = ['generate', 'add', 'remove', 'balance', 'default', 'all', 'list', 'bank', 'rename']
-trade_commands = ['buy', 'sell', 'order', 'create', 'cancel', 'live', 'past', 'token', 'tokens']
+trade_commands = ['buy', 'sell', 'order', 'create', 'cancel', 'live', 'past', 'token', 'tokens', 'mango', 'spl', 'mint']
 config_commands = ['set', 'get', 'update']
 user_commands = ['data', 'username', 'change']
 
