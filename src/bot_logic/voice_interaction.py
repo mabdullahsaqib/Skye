@@ -5,14 +5,14 @@ from .trade import trade_voice_interaction
 from .configuration import config_voice_interaction
 
 # commands
-wallet_commands = ['generate', 'add', 'remove', 'balance', 'default', 'all', 'list', 'bank', 'rename']
-trade_commands = ['buy', 'sell', 'order', 'create', 'cancel', 'live', 'past', 'token', 'tokens', 'mango', 'spl', 'mint']
-config_commands = ['set', 'get', 'update']
-user_commands = ['data', 'username', 'change']
+wallet_commands = ['generate', 'add', 'remove', 'balance', 'default', 'all', 'list', 'bank', 'rename', 'label', 'wallets', 'get', 'set', 'make', 'delete', 'by']
+trade_commands = ['buy', 'sell', 'order', 'create', 'cancel', 'live', 'past', 'token', 'tokens', 'mango', 'spl', 'mint', 'list', 'orders', 'orderbook', 'orderbooks']
+config_commands = ['set', 'get', 'update', 'config' 'configuration', 'configurations', 'configs', 'settings', 'setting']
+user_commands = ['data', 'username', 'change' 'user', 'users', 'profile']
 
 def handle_user_command(command, data= None):
     """Handle the user's command and return the appropriate response."""
-    if 'wallet' in command.lower() or any(cmd in command.lower() for cmd in wallet_commands):
+    if 'wallet' in command.lower() and any(cmd in command.lower() for cmd in wallet_commands):
         return wallet_voice_interaction(command, data)
     elif 'trade' in command.lower() or any(cmd in command.lower() for cmd in trade_commands):
         return trade_voice_interaction(command,data)

@@ -98,7 +98,9 @@ Example Inputs and Outputs:
 
 3. Input: "generate wallet S bank"
    Output: {{"command": "generate wallet", "label": "S bank"}}
-
+   
+4. Input: "get wallet by label S bank"
+    Output: {{"command": "get wallet by label", "label": "S bank"}}
 
 Only provide the dictionary in the response. nothing more, nothing less. Don't even write anything or before the brackets.
 

@@ -64,7 +64,7 @@ def rename_wallet(wallet_id, new_label):
 
 def get_wallet_by_label(label):
     """Get wallet by label."""
-    response = make_authenticated_request(f"/wallet/get-by-label?label={label}", method="GET")
+    response = make_authenticated_request(f"/wallet/by-label?label={label}", method="GET")
     if response:
         return {"status": "success", "message": "Wallet retrieved.", "data": response}
     return {"status": "error", "message": "Failed to retrieve wallet."}
@@ -93,12 +93,12 @@ def wallet_voice_interaction(command, data=None):
         if data and "address" in data:
             return set_default_wallet(data["address"])
         return {"status": "error", "message": "Wallet address is required to set default wallet."}
-    elif 'all' in command or 'list' in command:
-        return get_all_wallets()
-    elif 'get' in command and 'by' in command and 'label' in command:
+    elif 'get' in command and  'by' in command and 'label' in command:
         if data and "label" in data:
             return get_wallet_by_label(data["label"])
         return {"status": "error", "message": "Wallet label is required to fetch wallet."}
+    elif 'all' in command or 'list' in command:
+        return get_all_wallets()
     elif 'rename' in command:
         if data and "address" in data and "label" in data:
             return rename_wallet(data["address"], data["label"])
