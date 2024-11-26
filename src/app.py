@@ -102,7 +102,7 @@ Expected Keys:
 - mevProtection: A boolean value for MEV protection (if applicable).
 - minMarketCap: A minimum market cap value (if applicable).
 - renounced: A boolean value for renouncing ownership (if applicable).
-- slippage: A slippage value (if applicable).
+- slippage: A slippage value in percentange (if applicable).
 - top10HP: A value for the top 10 holders percentage (if applicable).
 
 Example Inputs and Outputs:
@@ -119,8 +119,8 @@ Example Inputs and Outputs:
 4. Input: "get wallet by label S bank"
     Output: {{"command": "get wallet by label", "label": "S bank"}}
     
-5. Input: "Raise my jitotip to 0.001"
-    Output: {{"command": "update config", "jitoTip": "0.001"}}
+5. Input: "Raise my jitotip to 0.001 and set slippage to 15%"
+    Output: {{"command": "update config", "jitoTip": "0.001", "slippage": "15%"}}
     
 6. Input: "how many wallets do i have?"
     Output: {{"command": "get all wallets"}}
@@ -132,7 +132,7 @@ Example Inputs and Outputs:
     Output: {{"command": "get wallet balance", "label": "default"}}
     
 9. Input: "which tokens do i own?"
-    Output: {{"command": "get tracked tokens", "reasons": ["ownership"]}}
+    Output: {{"command": "get wallet balance"}}
     
 10. Input: "do i have the mango token?"
     Output: {{"command": "get tracked token", "name": "mango"}}
@@ -194,6 +194,9 @@ Example Inputs and Outputs:
 29. Input: "Which tokens are migrating to moonshot?"
     Output: {{"command": "get tracked tokens", "reasons": ["moonshot_migrating"]}}
     
+30. Input: "Fetch my default wallet"
+    Output: {{"command": "get default wallet"}}
+    
 
 Only provide the dictionary in the response. nothing more, nothing less. Don't even write anything or before the brackets.
 
@@ -211,6 +214,7 @@ Now process the following command: "{raw_command}"
 
         print(f"Parsed command: {parsed_command}")
         api_response = handle_user_command(parsed_command["command"], parsed_command)
+        print(f"API response: {api_response}\n")
         if "Failed" in api_response:
             return jsonify({"error": "Invalid command"}), 400
         else:

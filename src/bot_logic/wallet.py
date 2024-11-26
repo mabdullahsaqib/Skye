@@ -1,3 +1,5 @@
+from flask import jsonify
+
 from .api_requests import make_authenticated_request
 
 def generate_wallet(label):
@@ -93,6 +95,14 @@ def wallet_voice_interaction(command, data=None):
         if data and "address" in data:
             return set_default_wallet(data["address"])
         return {"status": "error", "message": "Wallet address is required to set default wallet."}
+    elif 'balance' in command:
+        if data and "address" in data:
+            return get_wallet_balance(data["address"])
+        elif data:
+            address = get_default_wallet().get('data', {}).get('data', {}).get('address', None)
+            if address:
+                return get_wallet_balance(address)
+        return {"status": "error", "message": "Wallet address is required to fetch balance."}
     elif 'get' in command and 'label' in command:
         if data and "label" in data:
             return get_wallet_by_label(data["label"])
@@ -103,9 +113,5 @@ def wallet_voice_interaction(command, data=None):
         if data and "address" in data and "label" in data:
             return rename_wallet(data["address"], data["label"])
         return {"status": "error", "message": "Wallet address and new label are required to rename a wallet."}
-    elif 'balance' in command:
-        if data and "address" in data:
-            return get_wallet_balance(data["address"])
-        return {"status": "error", "message": "Wallet address is required to fetch balance."}
     else:
         return {"status": "error", "message": "Unknown wallet command."}
