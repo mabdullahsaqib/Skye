@@ -58,11 +58,32 @@ def get_past_orders():
 
 def get_tracked_tokens(reasons):
     """Get all tracked tokens with specified reasons."""
-    data = {"reasons": reasons}
-    response = make_authenticated_request("/trade/get-tracked-tokens", method="POST", data=data)
+    response = make_authenticated_request("/trade/get-tracked-tokens", method="POST", data={"reasons": reasons})
     if response:
         return {"status": "success", "message": "Tracked tokens retrieved.", "data": response}
     return {"status": "error", "message": "Failed to fetch tracked tokens."}
+
+def make_reasons_list(data):
+    """Create a list of reasons from the data. e.g, "mc_x" | "burned" | "renounced" | "moonshot_migrated" | "moonshot_migrating" | "pumpfun_migrated" | "pumpfun_migrating" | "new_pool" """
+
+    reasons = []
+    if "mc_x" in data["reasons"]:
+        reasons.append("mc_x")
+    if "burned" in data["reasons"]:
+        reasons.append("burned")
+    if "renounced" in data["reasons"]:
+        reasons.append("renounced")
+    if "moonshot_migrated" in data["reasons"]:
+        reasons.append("moonshot_migrated")
+    if "moonshot_migrating" in data["reasons"]:
+        reasons.append("moonshot_migrating")
+    if "pumpfun_migrated" in data["reasons"]:
+        reasons.append("pumpfun_migrated")
+    if "pumpfun_migrating" in data["reasons"]:
+        reasons.append("pumpfun_migrating")
+    if "new_pool" in data["reasons"]:
+        reasons.append("new_pool")
+    return reasons
 
 
 def get_tracked_token(token_id):
@@ -113,7 +134,8 @@ def trade_voice_interaction(command, data=None):
             return get_spl_token(data["mint"], data["name"])
         return {"status": "error", "message": "Mint or label required to fetch SPL token."}
     elif 'tokens' in command:
-        return get_tracked_tokens(data)
+        reasons = make_reasons_list(data)
+        return get_tracked_tokens(reasons)
     elif 'token' in command:
         return get_tracked_token(data.get("mint")) if data and "mint" in data else {"status": "error", "message": "Token ID required to fetch tracked token details."}
     else:

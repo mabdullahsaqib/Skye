@@ -150,7 +150,7 @@ Example Inputs and Outputs:
     Output: {{"command": "get tracked tokens", "reasons": ["moonshot_migrating"]}}
     
 15. Input: "what new tokens are created recently?"
-    Output: {{"command": "get tracked tokens", "reasons": ["new_creation"]}}
+    Output: {{"command": "get tracked tokens",   "reasons": ["new_pool"]}}
     
 16. Input: "fetch my wallet balance"
     Output: {{"command": "get wallet balance"}}
@@ -189,7 +189,7 @@ Example Inputs and Outputs:
     Output: {{"command": "get tracked tokens", "reasons": ["new_pool"]}}
     
 28. Input: "What are the recent pumpfun tokens?"
-    Output: {{"command": "get tracked tokens", "reasons": ["pumpfun_migrated"]}}
+    Output: {{"command": "get tracked tokens", "reasons":   "reasons": ["pumpfun_migrated"]}}
     
 29. Input: "Which tokens are migrating to moonshot?"
     Output: {{"command": "get tracked tokens", "reasons": ["moonshot_migrating"]}}
