@@ -130,9 +130,13 @@ def trade_voice_interaction(command, data=None):
     elif 'past' in command:
         return get_past_orders()
     elif 'spl' in command:
-        if data and ("mint" in data or "name" in data):
+        if data and ("mint" in data and "name" in data):
             return get_spl_token(data["mint"], data["name"])
-        return {"status": "error", "message": "Mint or label required to fetch SPL token."}
+        elif data and "mint" in data:
+            return get_spl_token(data["mint"])
+        elif data and "name" in data:
+            return get_spl_token(name=data["name"])
+        return {"status": "error", "message": "Mint or name required to fetch SPL token."}
     elif 'tokens' in command:
         reasons = make_reasons_list(data)
         return get_tracked_tokens(reasons)

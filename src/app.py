@@ -135,7 +135,7 @@ Example Inputs and Outputs:
     Output: {{"command": "get wallet balance"}}
     
 10. Input: "do i have the mango token?"
-    Output: {{"command": "get tracked token", "name": "mango"}}
+    Output: {{"command": "get wallet balance"}}
     
 11. Input: "whats the name of this token : XYZ123"
     Output: {{"command": "get spl token", "mint": "XYZ123"}}
