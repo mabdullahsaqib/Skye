@@ -11,7 +11,11 @@ app = Flask(__name__)
 
 # Configure CORS
 CORS(app, resources={
-    r"/*": {"origins": ["http://localhost:3000", "https://jarvis-ai-bot.vercel.app"]}
+     r"/*": {
+        "origins": ["http://localhost:3000", "https://jarvis-ai-bot.vercel.app"],
+        "methods": ["POST"],
+        "allow_headers": ["Content-Type", "Authorization"]
+    }
 })
 
 # Configure the generative model
