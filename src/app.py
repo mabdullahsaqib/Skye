@@ -4,8 +4,15 @@ from bot_logic.auth import validate_token
 from bot_logic.voice_interaction import handle_user_command
 import google.generativeai as genai
 import json
+from flask_cors import CORS
 
+# Initialize Flask app
 app = Flask(__name__)
+
+# Configure CORS
+CORS(app, resources={
+    r"/*": {"origins": ["http://localhost:3000", "https://jarvis-ai-bot.vercel.app"]}
+})
 
 # Configure the generative model
 genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
