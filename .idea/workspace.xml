@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dc16b96e-bb38-4ae8-b81a-f8120ee4a04e" name="Changes" comment="Added voice recognition and speech" />
+    <list default="true" id="dc16b96e-bb38-4ae8-b81a-f8120ee4a04e" name="Changes" comment="Added voice recognition and speech">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -232,7 +235,7 @@
       <workItem from="1732711158701" duration="675000" />
       <workItem from="1732794304580" duration="660000" />
       <workItem from="1732799462531" duration="168000" />
-      <workItem from="1732800887730" duration="298000" />
+      <workItem from="1732800887730" duration="990000" />
     </task>
     <task id="LOCAL-00001" summary="Added voice recognition and speech">
       <option name="closed" value="true" />

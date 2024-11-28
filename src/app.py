@@ -11,9 +11,9 @@ app = Flask(__name__)
 
 # Configure CORS
 CORS(app, resources={
-     r"/*": {
+    r"/*": {
         "origins": ["http://localhost:3000", "https://jarvis-ai-bot.vercel.app"],
-        "methods": ["POST"],
+        "methods": ["GET", "POST", "OPTIONS"],  # Include OPTIONS for preflight
         "allow_headers": ["Content-Type", "Authorization"]
     }
 })
@@ -41,10 +41,25 @@ user_logged_in = False
 current_token = None  # Store the Bearer token
 
 
-@app.route("/command", methods=["POST"])
+@app.after_request
+def apply_cors_headers(response):
+    """Ensure CORS headers are applied to every response."""
+    response.headers["Access-Control-Allow-Origin"] = request.headers.get(
+        "Origin", "*"
+    )
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type"
+    response.headers["Access-Control-Allow-Credentials"] = "true"
+    return response
+
+@app.route("/command", methods=["POST", "OPTIONS"])
 def execute_command():
     """Execute user commands."""
     global user_logged_in, current_token
+
+    # Handle preflight requests
+    if request.method == "OPTIONS":
+        return jsonify({"message": "CORS preflight successful"}), 200
 
     # Check if a token is provided in the Authorization header
     auth_header = request.headers.get("Authorization")
