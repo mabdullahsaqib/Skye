@@ -12,7 +12,7 @@ app = Flask(__name__)
 # Configure CORS
 CORS(app, resources={
     r"/*": {
-        "origins": ["http://localhost:3000", "https://jarvis-ai-bot.vercel.app/"],
+        "origins": ["*"],
         "methods": ["GET", "POST", "OPTIONS"],  # Include OPTIONS for preflight
         "allow_headers": ["Content-Type", "Authorization"]
     }
@@ -40,17 +40,6 @@ model = genai.GenerativeModel(
 user_logged_in = False
 current_token = None  # Store the Bearer token
 
-
-@app.after_request
-def apply_cors_headers(response):
-    """Ensure CORS headers are applied to every response."""
-    response.headers["Access-Control-Allow-Origin"] = request.headers.get(
-        "Origin", "*"
-    )
-    response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
-    response.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type"
-    response.headers["Access-Control-Allow-Credentials"] = "true"
-    return response
 
 @app.route("/command", methods=["POST", "OPTIONS"])
 def execute_command():
