@@ -12,7 +12,7 @@ app = Flask(__name__)
 # Configure CORS
 CORS(app, resources={
     r"/*": {
-        "origins": ["http://localhost:3000", "https://jarvis-ai-bot.vercel.app/"],
+        "origins": ["*"],
         "methods": ["GET", "POST", "OPTIONS"],  # Include OPTIONS for preflight
         "allow_headers": ["Content-Type", "Authorization"]
     }
