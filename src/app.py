@@ -102,7 +102,7 @@ Expected Keys:
 - mevProtection: A boolean value for MEV protection (if applicable).
 - minMarketCap: A minimum market cap value (if applicable).
 - renounced: A boolean value for renouncing ownership (if applicable).
-- slippage: A slippage value in percentange (if applicable).
+- slippage: A percentage value for slippage(if applicable).
 - top10HP: A value for the top 10 holders percentage (if applicable).
 
 Example Inputs and Outputs:
@@ -119,7 +119,7 @@ Example Inputs and Outputs:
 4. Input: "get wallet by label S bank"
     Output: {{"command": "get wallet by label", "label": "S bank"}}
     
-5. Input: "Raise my jitotip to 0.001 and set slippage to 15%"
+5. Input: "Raise my jitotip to 0.001 and set slippage to 15"
     Output: {{"command": "update config", "jitoTip": "0.001", "slippage": "15%"}}
     
 6. Input: "how many wallets do i have?"
@@ -209,8 +209,12 @@ Now process the following command: "{raw_command}"
         print(f"Raw response from Gemini: {parsed_command_response.text}")
 
         # Clean and parse the JSON
-        parsed_command_text = parsed_command_response.text.strip("```").strip("json").strip()
-        parsed_command = json.loads(parsed_command_text)
+        parsed_command_text = parsed_command_response.text.strip("```").strip("json").strip("\n").strip("```").strip()
+
+        try:
+            parsed_command = json.loads(parsed_command_text)
+        except json.JSONDecodeError as e:
+            return jsonify({"error": f"Failed to parse the command: {parsed_command_text}"}), 400
 
         print(f"Parsed command: {parsed_command}")
         api_response = handle_user_command(parsed_command["command"], parsed_command)
