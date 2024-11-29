@@ -350,4 +350,4 @@ Now process the following command: "{raw_command}"
 
 
 if __name__ == "__main__":
-    app.run(Debug=True)
+    app.run(Debug=True, ssl_context = None)
