@@ -135,7 +135,7 @@ Example Inputs and Outputs:
     Output: {{"command": "get wallet by label", "label": "S bank"}}
     
 5. Input: "Raise my jitotip to 0.001 and set slippage to 15"
-    Output: {{"command": "update config", "jitoTip": "0.001", "slippage": "15%"}}
+    Output: {{"command": "update config", "jitoTip": "0.001", "slippage": "15"}}
     
 6. Input: "how many wallets do i have?"
     Output: {{"command": "get all wallets"}}
@@ -350,4 +350,4 @@ Now process the following command: "{raw_command}"
 
 
 if __name__ == "__main__":
-    app.run(Debug=True, ssl_context = None)
+    app.run(Debug=True)

@@ -11,8 +11,5 @@
       "src": "/(.*)",
       "dest": "/app.py"
     }
-  ],
-  "rewrites": [
-    { "source": "/command", "destination": "http://217.196.51.52:4009/$1" }
   ]
 }
