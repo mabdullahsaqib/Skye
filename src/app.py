@@ -126,7 +126,7 @@ Example Inputs and Outputs:
    Output: {{"command": "buy token", "mint": "XYZ123", "address": "ABC456"}}
 
 2. Input: "sell token with mint XYZ123 at 50% to wallet DEF789"
-   Output: {{"command": "sell token", "mint": "XYZ123", "address": "DEF789","percentage": "50"}}
+   Output: {{"command": "sell token", "mint": "XYZ123", "address": "DEF789","percentage": 50}}
 
 3. Input: "generate wallet S bank"
    Output: {{"command": "generate wallet", "label": "S bank"}}
@@ -135,7 +135,7 @@ Example Inputs and Outputs:
     Output: {{"command": "get wallet by label", "label": "S bank"}}
     
 5. Input: "Raise my jitotip to 0.001 and set slippage to 15"
-    Output: {{"command": "update config", "jitoTip": "0.001", "slippage": "15"}}
+    Output: {{"command": "update config", "jitoTip": 0.001, "slippage": 15}}
     
 6. Input: "how many wallets do i have?"
     Output: {{"command": "get all wallets"}}
@@ -156,7 +156,7 @@ Example Inputs and Outputs:
     Output: {{"command": "get spl token", "mint": "XYZ123"}}
     
 12. Input: "can you buy this token XYZ123 with a 0.0001 sol?"
-    Output: {{"command": "buy token", "mint": "XYZ123", "amount": "0.0001"}}
+    Output: {{"command": "buy token", "mint": "XYZ123", "amount": 0.0001}}
     
 13. Input: "what is my current slippage?"
     Output: {{"command": "get config"}}
