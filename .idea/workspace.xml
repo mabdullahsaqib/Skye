@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc16b96e-bb38-4ae8-b81a-f8120ee4a04e" name="Changes" comment="Added voice recognition and speech">
-      <change beforePath="$PROJECT_DIR$/src/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -237,6 +237,8 @@
       <workItem from="1732800887730" duration="3275000" />
       <workItem from="1732845054329" duration="4000" />
       <workItem from="1732872724967" duration="4996000" />
+      <workItem from="1732980593333" duration="258000" />
+      <workItem from="1733038739347" duration="538000" />
     </task>
     <task id="LOCAL-00001" summary="Added voice recognition and speech">
       <option name="closed" value="true" />
